@@ -1,0 +1,54 @@
+server:
+  port: 8580
+  servlet:
+    context-path: /
+
+spring:
+  application:
+    name: bbs-backend
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/bbs_db?useUnicode=true&characterEncoding=UTF-8&connectionCollation=utf8mb4_unicode_ci&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true&rewriteBatchedStatements=true
+    username: root
+    password: rootadmin
+    initialization-mode: always
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema.sql
+      continue-on-error: false
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      database: 0
+      password: seamwhole
+      lettuce:
+        pool:
+          max-active: 8
+          max-idle: 8
+          min-idle: 0
+          max-wait: -1ms
+
+# MyBatis Plus配置
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      id-type: auto
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+  mapper-locations: classpath*:/mapper/**/*.xml
+
+# JWT配置
+jwt:
+  secret: bbs-forum-secret-key-2024-springboot3-mysql8-vue3-element-plus
+  expiration: 86400000
+
+# 分页配置
+page:
+  default-page-size: 20
+  max-page-size: 100
